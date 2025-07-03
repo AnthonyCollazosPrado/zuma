@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
 import AppLayout from '@/layout/AppLayout.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -13,6 +13,12 @@ const router = createRouter({
                     path: '',
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: '/BuscarOportunidades',
+                    name: 'BuscarOportunidades',
+                    component: () => import('@/views/pages/BuscarOportunidades.vue'),
                     meta: { requiresAuth: true }
                 },
                 {

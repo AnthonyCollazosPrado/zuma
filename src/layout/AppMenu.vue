@@ -13,14 +13,14 @@ const model = ref([
     },
     {
         items: [
-            { label: 'Buscar oportunidades', icon: '/imagenes/zuma/buscar.svg', to: '/Search' }
+            { label: 'Buscar oportunidades', icon: '/imagenes/zuma/buscar.svg', to: '/BuscarOportunidades' }
         ]
     },
-    {
+    /*{
         items: [
             { label: 'Mi dashboard', icon: '/imagenes/zuma/dashboard.svg', to: '/uikit/formlayout' }
         ]
-    },
+    },*/
     {
         items: [
             {

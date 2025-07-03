@@ -14,390 +14,231 @@
 
     <div class="p-10 my-10 rounded-3xl bg-[#F0F1F9]">
         <div class="grid grid-cols-8 gap-0">
-            <div class="col-span-8 lg:col-span-4">
+            <div class="col-span-8 lg:col-span-4 mb-5">
                 <h3 class="m-0 text-[#171717]">Mi billetera</h3>
-                <p class="m-0 text-[#171717]">Puedes utilizar ambas monedas al momento de hacer la inversión.</p>
+                <p class="m-0 text-[#171717]">Puedes utilizar ambas monedas al momento de hacer la inversión.
+                </p>
             </div>
-            <div class="col-span-8 lg:col-span-4 text-end">
+            <div class="col-span-8 lg:col-span-4 text-end mb-5">
+                <Button label="Calcular" icon="pi pi-plus"
+                    class="!border-none !text-white !bg-[#171717] hover:!bg-[#6790FF] focus:!border-none focus:!bg-[#FF4929] !font-bold !rounded-3xl !px-5 !py-3 !me-3 !transition !duration-100 !ease-in" />
+                <Button label="Retiro" icon="pi pi-minus"
+                    class="border-general-black !border-none !text-[#171717] !bg-transparent hover:!bg-[#6790FF] focus:!border-none focus:!bg-[#FF4929] !font-bold !rounded-3xl !px-5 !py-3 !transition !duration-100 !ease-in" />
+                <Button v-if="wallet" @click="showWallet" icon="pi pi-angle-up" aria-label="Mostrar Billetera"
+                    variant="link" class="!text-black" />
+                <Button v-else @click="showWallet" icon="pi pi-angle-down" aria-label="Mostrar Billetera" variant="link"
+                    class="!text-black" />
+            </div>
+            <div class="col-span-8">
                 <button type="button"
                     class="text-[#171717] bg-white focus:outline-none hover:bg-[#6790FF] focus:bg-[#FF4929] font-bold rounded-3xl px-5 py-3 me-3 transition duration-100 ease-in">
                     <img src="/imagenes/zuma/pen.png" alt="Logo Zuma" class="inline-block me-2" width="20" />
                     <span class="inline-block align-middle">PEN</span>
                 </button>
+                <div v-if="wallet" class="grid grid-cols-3 gap-4 my-5">
+                    <div class="col-span-3 lg:col-span-1">
+                        <div class="rounded-3xl bg-white relative p-10">
+                            <i
+                                class="pi pi-wallet text-[#171717] !text-[2.8rem] inline-block align-top mt-5 mb-3 me-10"></i>
+                            <div class="inline-block">
+                                <h5 class="text-[#171717] m-0 font-semibold">Saldo disponible</h5>
+                                <h3 class="text-[#171717] m-0 font-bold">S/ 0.00</h3>
+                                <a class="text-[#6790FF] m-0 font-medium">Ver más...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-3 lg:col-span-1">
+                        <div class="rounded-3xl bg-white relative p-10">
+                            <i
+                                class="pi pi-building-columns text-[#171717] !text-[2.8rem] inline-block align-top mt-5 mb-3 me-10"></i>
+                            <div class="inline-block">
+                                <h5 class="text-[#171717] m-0 font-semibold">Total invertido</h5>
+                                <h3 class="text-[#171717] m-0 font-bold">S/ 0.00</h3>
+                                <a class="text-[#6790FF] m-0 font-medium">Ver más...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-3 lg:col-span-1">
+                        <div class="rounded-3xl bg-white relative p-10">
+                            <i
+                                class="pi pi-money-bill text-[#171717] !text-[2.8rem] inline-block align-top mt-5 mb-3 me-10"></i>
+                            <div class="inline-block">
+                                <h5 class="text-[#171717] m-0 font-semibold">Retorno esperado</h5>
+                                <h3 class="text-[#171717] m-0 font-bold">S/ 0.00</h3>
+                                <a class="text-[#6790FF] m-0 font-medium">Ver más...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button type="button"
                     class="text-[#171717] bg-white focus:outline-none hover:bg-[#6790FF] focus:bg-[#FF4929] font-bold rounded-3xl px-5 py-3 me-3 transition duration-100 ease-in">
                     <img src="/imagenes/zuma/usd.png" alt="Logo Zuma" class="inline-block me-2" width="20" />
                     <span class="inline-block align-middle">USD</span>
                 </button>
-                <button type="button"
-                    class="text-white bg-[#171717] focus:outline-none hover:bg-[#6790FF] focus:bg-[#FF4929] font-bold rounded-3xl px-5 py-3 me-3 transition duration-100 ease-in">
-                    <i class="pi pi-plus inline-block align-middle me-2"></i>
-                    <span class="inline-block align-middle">Calcular</span>
-                </button>
-                <button type="button"
-                    class="text-[#171717] border-button-black focus:outline-none hover:bg-[#6790FF] focus:bg-[#FF4929] font-bold rounded-3xl px-5 py-3 transition duration-100 ease-in">
-                    <i class="pi pi-minus inline-block align-middle me-2"></i>
-                    <span class="inline-block align-middle">Retiro</span>
-                </button>
+                <div v-if="wallet" class="grid grid-cols-3 gap-4 mt-5">
+                    <div class="col-span-3 lg:col-span-1">
+                        <div class="rounded-3xl bg-white relative p-10">
+                            <i
+                                class="pi pi-wallet text-[#171717] !text-[2.8rem] inline-block align-top mt-5 mb-3 me-10"></i>
+                            <div class="inline-block">
+                                <h5 class="text-[#171717] m-0 font-semibold">Saldo disponible</h5>
+                                <h3 class="text-[#171717] m-0 font-bold">$ 0.00</h3>
+                                <a class="text-[#6790FF] m-0 font-medium">Ver más...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-3 lg:col-span-1">
+                        <div class="rounded-3xl bg-white relative p-10">
+                            <i
+                                class="pi pi-building-columns text-[#171717] !text-[2.8rem] inline-block align-top mt-5 mb-3 me-10"></i>
+                            <div class="inline-block">
+                                <h5 class="text-[#171717] m-0 font-semibold">Total invertido</h5>
+                                <h3 class="text-[#171717] m-0 font-bold">$ 0.00</h3>
+                                <a class="text-[#6790FF] m-0 font-medium">Ver más...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-3 lg:col-span-1">
+                        <div class="rounded-3xl bg-white relative p-10">
+                            <i
+                                class="pi pi-money-bill text-[#171717] !text-[2.8rem] inline-block align-top mt-5 mb-3 me-10"></i>
+                            <div class="inline-block">
+                                <h5 class="text-[#171717] m-0 font-semibold">Retorno esperado</h5>
+                                <h3 class="text-[#171717] m-0 font-bold">$ 0.00</h3>
+                                <a class="text-[#6790FF] m-0 font-medium">Ver más...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
-
-
-    <div class="p-10 my-10 rounded-3xl bg-[#F0F1F9]">
-
-        <h3 class="m-0 text-[#171717]">Bolsa de entidades</h3>
-        <p class="m-0 text-[#171717] pb-10">Aquí puedes consultar y hacer una simulación los cambios de la bolsa
-            de entidades. Solo, ingresa el monto a invertir, elije el tipo de moneda y realiza la consulta.
-            Luego presiona el botón calculadora para revisar los detalles.</p>
-
-        <form class="">
-            <div class="grid grid-cols-6 gap-0">
-                <div class="col-span-6 lg:col-span-1 mb-3">
-                    <label class="text-[#171717] font-bold md:text-left mb-1 md:mb-0 pr-4 py-3 static lg:absolute"
-                        for="inline-full-name">
-                        Monto a invertir
-                    </label>
+    <div class="grid grid-cols-2 gap-4 mt-5">
+        <div class="col-span-2 lg:col-span-1">
+            <div class="border-general-grey rounded-3xl bg-white relative p-10">
+                <h5 class="text-[#171717] m-0 font-semibold w-full">Última factura invertida</h5>
+                <div class="text-center my-20">
+                    <p class="font-bold mt-0 mb-3 fill-[#171717]">¡Ups aún no has invertido en una factura!</p>
+                    <svg xmlns='http://www.w3.org/2000/svg' class="fill-[#171717] relative mx-auto" width='169.333'
+                        height='228' version='1.0' viewBox='0 0 127 171'>
+                        <path
+                            d='M106.5 2.3c-3.3.5-6.1 1.1-6.3 1.2-.4.4 9.8 53.8 10.4 54.4.2.2 2.8 0 5.9-.4l5.6-.7-.6-3.1c-.7-3.9-6.5-50.2-6.5-51.6 0-1.2-.2-1.2-8.5.2zM44 16.1C25.6 18.8 10.1 31.7 4 49.4c-8.1 23.5 2.9 50.3 24.8 60.8l6.9 3.3-2.6 4.9c-2.5 4.9-2.6 5.5-2.9 27.8l-.3 22.8H51v-3c0-2.2-.5-3-1.8-3-1 0-2.8-.7-4-1.6-2.1-1.5-2.2-2.1-2.2-18.6 0-19.2.5-21 7-24.7 6.5-3.6 13.6-2.4 18.9 3.2 2 2.2 2.8 5.6 5.8 23.3 1.9 11.5 3.6 21 3.9 21.3.4.4 15.3-1.5 18.5-2.5 1.1-.3 1.4-1.3 1.1-3.4-.4-2.5-.9-3-3.1-3-5.5 0-6.2-1.5-9.1-19.1-2.7-16.3-4.3-21.2-8.4-25.8l-2.1-2.3 2.5-1.6c7.2-4.7 14.3-12.9 18.3-21.1 3.7-7.8 4.1-9.2 4.5-18.7.4-8.4.1-11.4-1.6-17.1-5.7-18.6-21.5-32.2-40.9-35.2-3.9-.6-7.5-1-8-1-.4.1-3.3.5-6.3 1zm23.2 14.1c8 3.7 15.2 10.7 19.1 18.7 2.9 6.1 3.2 7.4 3.2 16.6 0 8.8-.3 10.7-2.7 15.7C75.2 106 43.1 112 24 93 3.3 72.2 12.1 37.7 40.5 28.3c6.6-2.1 19.9-1.2 26.7 1.9z' />
+                        <path
+                            d='M43.7 35.6c-.3.3-.3 2-.1 3.7.5 2.9.2 3.4-3.2 5.2-5.3 2.8-7.9 6.8-7.9 11.9 0 8.9 4.3 12.3 17 13.6 9.3 1 10 1.2 11.5 4.1 1.8 3.2-2.8 6.9-8.4 6.9-3.7 0-4.8-.5-7-3.1-2.5-2.9-3-3.1-7.2-2.4-4.3.6-4.5.8-4 3.3 1 4 6.8 9 12.1 10.3 4 1 4.5 1.4 4.5 4 0 3.4.5 3.7 5.3 3.1 3.8-.4 3.9-.5 3.3-3.8-.6-3.1-.4-3.5 3.3-5.3 7.4-3.8 10.6-11.5 7.8-18.3-2.2-5.3-5.4-6.9-15.9-8-10-1-11.8-1.8-11.8-5.4 0-6.6 12.7-7.2 15.1-.7.7 1.7 9.3 0 9.7-1.8.7-3.5-8-10.9-12.6-10.9-2.1 0-3.2-1.8-3.2-5.1 0-1.5-.7-1.9-3.8-1.9-2.1 0-4.1.3-4.5.6zM115.4 63c-2.9 1.1-5.4 4.9-5.4 7.8 0 3.2 5.2 8.2 8.5 8.2 3.4 0 8.5-5 8.5-8.4 0-5.2-6.8-9.6-11.6-7.6z' />
+                    </svg>
+                    <p class="mt-3 mb-0 fill-[#171717]">Comienza a generar ganancias!</p>
                 </div>
-                <div class="col-span-3 lg:col-span-3 pe-3">
-                    <InputNumber id="amount" v-model="simulationForm.amount" mode="currency" currency="PEN"
-                        locale="es-PE" :min="100" :max="1000000" placeholder="Ingrese el monto" @input="onAmountChange"
-                        class="!w-full general" />
-                </div>
-                <div class="col-span-3 lg:col-span-2">
-                    <Button label="Show" @click="simulateByAmount"
-                        class="!border-none !w-full !text-white !bg-[#171717] hover:!bg-[#6790FF] focus:!border-none focus:!bg-[#FF4929] !font-bold !rounded-3xl !px-5 !py-3 !me-3 !transition !duration-100 !ease-in">
-                        <i class="pi pi-calculator inline-block align-middle me-2"></i>
-                        <span class="inline-block align-middle">Calcular</span>
-                    </Button>
-
-
-                    <!-- <Button label="Show" @click="visible = true"
-                        class="!border-none !w-full !text-white !bg-[#171717] hover:!bg-[#6790FF] focus:!border-none focus:!bg-[#FF4929] !font-bold !rounded-3xl !px-5 !py-3 !me-3 !transition !duration-100 !ease-in">
-                        <i class="pi pi-calculator inline-block align-middle me-2"></i>
-                        <span class="inline-block align-middle">Calcular</span>
-                    </Button> -->
-                </div>
-
-
-
             </div>
-        </form>
-
-        <div class="relative overflow-x-auto rounded-3xl mt-10">
-            <table class="w-full text-left rtl:text-right text-gray-500">
-                <thead class="text-[#171717] border-b border-[#D9D9D9] bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-5 py-3">Entidad</th>
-                        <th scope="col" class="px-5 py-2">3 m.</th>
-                        <th scope="col" class="px-5 py-2">6 m.</th>
-                        <th scope="col" class="px-5 py-2">9 m.</th>
-                        <th scope="col" class="px-5 py-2">12 m.</th>
-                        <th scope="col" class="px-5 py-2">18 m.</th>
-                        <th scope="col" class="px-5 py-2">24 m.</th>
-                        <th scope="col" class="px-5 py-2">36 m.</th>
-                        <th scope="col" class="px-5 py-2">48 m.</th>
-                        <th scope="col" class="px-5 py-2">60 m.</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-
-
-                    <tr v-for="item in simulationItems" :key="item.id"
-                        class="odd:bg-white even:bg-gray-50 text-[#171717]">
-                        <th scope="row" class="px-5 py-3 font-medium">
-                            {{ item.nombre }}
-                        </th>
-                        <td v-for="subitem in item.tea" :key="subitem.id" class="px-5 py-2">
-                            {{ subitem[1] }}
-                            <Button v-if="subitem[1] != ''"
-                                @click="simulationDetaill(item.nombre, subitem[0], subitem[1], subitem[2], subitem[3])"
-                                icon="pi pi-calculator" aria-label="Save" variant="link" class="!text-black" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-
-
-
-
-
-
-
-        <Card class="mb-4">
-            <template #title>
-                <div class="flex items-center">
-                    <i class="pi pi-calendar mr-2 text-primary"></i>
-                    Configurar Cronograma
-                </div>
-            </template>
-            <template #content>
-                <div class="flex flex-wrap gap-3 items-end">
-                    <div class="flex flex-col flex-1 min-w-[200px]">
-                        <label class="block text-900 font-medium mb-2">Frecuencia de Pago</label>
-                        <Dropdown v-model="scheduleForm.paymentFrequencyId" :options="paymentFrequencies"
-                            option-label="nombre" option-value="id" placeholder="Seleccionar frecuencia" class="w-full"
-                            @change="generateSchedule" />
+        <div class="col-span-2 lg:col-span-1">
+            <div class="border-general-grey rounded-3xl bg-white relative p-10">
+                <h5 class="text-[#171717] mt-0 mb-3 font-semibold w-full">Ranking top 6 inversionistas</h5>
+                <div class="rounded-3xl bg-[#EAB40A] ps-3 pe-5 py-3 mt-5">
+                    <div class="w-4/5 inline-block">
+                        <p
+                            class="font-bold text-[#EAB40A] m-0 rounded-[3rem] bg-white inline-block w-[49px] py-[14px] text-center me-3">
+                            LU
+                        </p>
+                        <h5 class="font-medium text-white m-0 inline-block">Lu - S/ 13,300.00</h5>
                     </div>
-                    <div class="flex flex-col flex-1 min-w-[200px]">
-                        <label class="block text-900 font-medium mb-2">Fecha de Inicio</label>
-                        <Calendar v-model="scheduleForm.startDate" date-format="dd/mm/yy"
-                            placeholder="Seleccionar fecha" class="w-full" :min-date="new Date()"
-                            @date-select="generateSchedule" />
-                    </div>
-                    <div class="flex">
-                        <Button label="Generar Cronograma" icon="pi pi-table" :loading="loading.schedule"
-                            :disabled="!scheduleForm.paymentFrequencyId" @click="generateSchedule" />
+                    <div class="w-1/5 inline-block text-end">
+                        <h5 class="text-white m-0 rounded-3xl bg-[#171717] inline-block w-[34px] py-[4px] text-center">
+                            1
+                        </h5>
                     </div>
                 </div>
-            </template>
-        </Card>
-
-
-
-        <DataTable :value="scheduleData.cronograma" :paginator="true" :rows="10" size="small" :scrollable="true"
-            scroll-height="400px">
-            <Column field="numero_pago" header="Mes" class="text-center" sortable style="min-width: 4rem" />
-            <Column field="fecha_cronograma" header="Cronograma" sortable style="min-width: 8rem">
-                <template #body="slotProps">
-                    <span>{{ slotProps.data.fecha_cronograma }}</span>
-                </template>
-            </Column>
-            <Column field="fecha_pago" header="Fecha de Pago" sortable style="min-width: 9rem">
-                <template #body="slotProps">
-                    <span>{{ slotProps.data.fecha_pago ?? '-' }}</span>
-                </template>
-            </Column>
-            <Column field="dias_periodo" header="Días" class="text-center" sortable style="min-width: 4rem">
-                <template #body="slotProps">
-                    <span>{{ slotProps.data.dias_periodo ?? '-' }}</span>
-                </template>
-            </Column>
-            <Column field="monto_base" header="Monto base" class="text-right" sortable style="min-width: 8rem">
-                <template #body="slotProps">
-                    <span class="text-900">S/ {{ formatMoney(slotProps.data.monto_base) }}</span>
-                </template>
-            </Column>
-            <Column field="interes_bruto" header="Interés base (S/.)" class="text-right" sortable
-                style="min-width: 10rem">
-                <template #body="slotProps">
-                    <span v-if="slotProps.data.interes_bruto > 0" class="text-green-600">
-                        S/ {{ formatMoney(slotProps.data.interes_bruto) }}
-                    </span>
-                    <span v-else>-</span>
-                </template>
-            </Column>
-            <Column field="impuesto_2da" header="Impuesto 2da categoría" class="text-right" sortable
-                style="min-width: 14rem">
-                <template #body="slotProps">
-                    <span v-if="slotProps.data.impuesto_2da > 0" class="text-red-500">
-                        S/ {{ formatMoney(slotProps.data.impuesto_2da) }}
-                    </span>
-                    <span v-else>-</span>
-                </template>
-            </Column>
-            <Column field="interes_neto" header="Interés a depositar" sortable style="min-width: 11rem">
-                <template #body="slotProps">
-                    <span v-if="slotProps.data.interes_neto > 0" class="text-blue-600 font-semibold">
-                        S/ {{ formatMoney(slotProps.data.interes_neto) }}
-                    </span>
-                    <span v-else>-</span>
-                </template>
-            </Column>
-            <Column field="devolucion_capital" header="Devolución capital" sortable style="min-width: 11rem">
-                <template #body="slotProps">
-                    <span v-if="slotProps.data.devolucion_capital > 0" class="text-orange-600 font-semibold">
-                        S/ {{ formatMoney(slotProps.data.devolucion_capital) }}
-                    </span>
-                    <span v-else>-</span>
-                </template>
-            </Column>
-            <Column field="saldo_capital" header="Saldo de capital" sortable style="min-width: 10rem">
-                <template #body="slotProps">
-                    <span class="text-900">S/ {{ formatMoney(slotProps.data.saldo_capital) }}</span>
-                </template>
-            </Column>
-            <Column field="total_a_depositar" header="Total a depositar" sortable style="min-width: 10rem">
-                <template #body="slotProps">
-                    <span v-if="slotProps.data.total_a_depositar > 0" class="font-bold text-primary">
-                        S/ {{ formatMoney(slotProps.data.total_a_depositar) }}
-                    </span>
-                    <span v-else>-</span>
-                </template>
-            </Column>
-        </DataTable>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <Dialog v-model:visible="detaill" modal header="Entidad" class="!text-[#171717]" :style="{ width: '80rem' }">
-            <h2 class="text-[#171717] block mb-8">{{ chosenItem.nombre }}</h2>
-            <h3 class="text-[#171717]">Monto invertido: S/ {{ simulationForm.amount }}</h3>
-            <div class="relative overflow-x-auto rounded-3xl mt-10">
-                <table class="w-full text-left rtl:text-right text-gray-500">
-                    <thead class="text-[#171717] border-b border-[#D9D9D9] bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-5 py-3">Tasa</th>
-                            <th scope="col" class="px-5 py-3">Plazo</th>
-                            <th scope="col" class="px-5 py-3">Interés ganado</th>
-                            <!-- <th scope="col" class="px-5 py-3">Retorno total</th> -->
-                            <th scope="col" class="px-5 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr class="odd:bg-white even:bg-gray-50 text-[#171717]">
-                            <th scope="row" class="px-5 py-3 font-medium">
-                                {{ chosenItem.tea }}
-                            </th>
-                            <td class="px-5 py-2">
-                                {{ chosenItem.plazo }} días
-                            </td>
-                            <td class="px-5 py-2">
-                                {{ chosenItem.retorno }}
-                            </td>
-                            <!-- <td class="px-5 py-2">
-                                
-                            </td> -->
-                            <td class="px-5 py-2">
-                                <button type="button"
-                                    class="text-white bg-[#171717] focus:outline-none hover:bg-[#6790FF] focus:bg-[#FF4929] font-bold rounded-3xl px-5 py-3 me-3 transition duration-100 ease-in">
-                                    <i class="pi pi-eye inline-block align-middle me-2"></i>
-                                    <span class="inline-block align-middle">Cronograma</span>
-                                </button>
-                                <button type="button"
-                                    class="text-[#171717] border-button-black focus:outline-none hover:bg-[#6790FF] focus:bg-[#FF4929] font-bold rounded-3xl px-5 py-3 transition duration-100 ease-in">
-                                    <i class="pi pi-file-excel inline-block align-middle me-2"></i>
-                                    <span class="inline-block align-middle">Excel</span>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="rounded-3xl bg-[#FF4929] ps-3 pe-5 py-3 mt-5">
+                    <div class="w-4/5 inline-block">
+                        <p
+                            class="font-bold text-[#FF4929] m-0 rounded-[3rem] bg-white inline-block w-[49px] py-[14px] text-center me-3">
+                            AN
+                        </p>
+                        <h5 class="font-medium text-white m-0 inline-block">Anthony - S/ 12,300.00</h5>
+                    </div>
+                    <div class="w-1/5 inline-block text-end">
+                        <h5 class="text-white m-0 rounded-3xl bg-[#171717] inline-block w-[34px] py-[4px] text-center">
+                            2
+                        </h5>
+                    </div>
+                </div>
+                <div class="rounded-3xl bg-[#6790FF] ps-3 pe-5 py-3 mt-5">
+                    <div class="w-4/5 inline-block">
+                        <p
+                            class="font-bold text-[#6790FF] m-0 rounded-[3rem] bg-white inline-block w-[49px] py-[14px] text-center me-3">
+                            JE
+                        </p>
+                        <h5 class="font-medium text-white m-0 inline-block">Jeferson - S/ 1,300.00</h5>
+                    </div>
+                    <div class="w-1/5 inline-block text-end">
+                        <h5 class="text-white m-0 rounded-3xl bg-[#171717] inline-block w-[34px] py-[4px] text-center">
+                            3
+                        </h5>
+                    </div>
+                </div>
+                <div class="rounded-3xl border-general-grey ps-3 pe-5 py-3 mt-5">
+                    <div class="w-4/5 inline-block">
+                        <p
+                            class="font-bold text-[#171717] m-0 rounded-[3rem] border-general-grey inline-block w-[49px] py-[14px] text-center me-3">
+                            MA
+                        </p>
+                        <h5 class="font-medium text-[#171717] m-0 inline-block">Martin - S/ 300.00</h5>
+                    </div>
+                    <div class="w-1/5 inline-block text-end">
+                        <h5 class="text-white m-0 rounded-3xl bg-[#171717] inline-block w-[34px] py-[4px] text-center">
+                            4
+                        </h5>
+                    </div>
+                </div>
+                <div class="rounded-3xl border-general-grey ps-3 pe-5 py-3 mt-5">
+                    <div class="w-4/5 inline-block">
+                        <p
+                            class="font-bold text-[#171717] m-0 rounded-[3rem] border-general-grey inline-block w-[49px] py-[14px] text-center me-3">
+                            JO
+                        </p>
+                        <h5 class="font-medium text-[#171717] m-0 inline-block">José - S/ 200.00</h5>
+                    </div>
+                    <div class="w-1/5 inline-block text-end">
+                        <h5 class="text-white m-0 rounded-3xl bg-[#171717] inline-block w-[34px] py-[4px] text-center">
+                            5
+                        </h5>
+                    </div>
+                </div>
+                <div class="rounded-3xl border-general-grey ps-3 pe-5 py-3 mt-5">
+                    <div class="w-4/5 inline-block">
+                        <p
+                            class="font-bold text-[#171717] m-0 rounded-[3rem] border-general-grey inline-block w-[49px] py-[14px] text-center me-3">
+                            BR
+                        </p>
+                        <h5 class="font-medium text-[#171717] m-0 inline-block">Brian - S/ 100.00</h5>
+                    </div>
+                    <div class="w-1/5 inline-block text-end">
+                        <h5 class="text-white m-0 rounded-3xl bg-[#171717] inline-block w-[34px] py-[4px] text-center">
+                            6
+                        </h5>
+                    </div>
+                </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="flex justify-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary" @click="detaill = false"></Button>
-                <Button type="button" label="Save" @click="detaill = false"></Button>
-            </div>
-        </Dialog>
+        </div>
     </div>
+
 </template>
 
 
 
 <script setup>
-import StatsWidget from '@/components/dashboard/StatsWidget.vue';
 import { simulationService } from '@/services/simulationService';
 import { useToast } from "primevue/usetoast";
 import { computed, onMounted, ref } from "vue";
 
 const toast = useToast();
 const detaill = ref(false);
+const schedule = ref(false);
+const wallet = ref(false);
 const home = ref({ icon: 'pi pi-home' });
 const items = ref([{ label: 'Mi billetera' }]);
 
-const simulationItems = ref([])
+const simulationItems = ref()
 const chosenItem = ref({
     id: 37,
     nombre: '',
@@ -426,9 +267,7 @@ const paymentFrequencies = ref([])
 //const selectedRate = ref(null)
 // const scheduleData = ref(null)
 const selectedRate = ref('')
-const scheduleData = ref({
-    cronograma: ''
-})
+const scheduleData = ref(null)
 const comparisonResults = ref([])
 
 const compareForm = ref({
@@ -441,13 +280,20 @@ const simulationForm = ref({
     amount: ''
 })
 
+const activeTab = ref(0)
 const scheduleForm = ref({
     paymentFrequencyId: null,
     startDate: new Date(),
     taxRate: 0.05
 })
 
-
+const showWallet = () => {
+    if (wallet.value) {
+        wallet.value = false
+    } else {
+        wallet.value = true
+    }
+}
 
 const loadPaymentFrequencies = async () => {
     try {
@@ -501,6 +347,8 @@ const generateSchedule = async () => {
                 detail: 'Se ha generado el cronograma de pagos',
                 life: 3000
             })
+
+            schedule.value = true
         }
     } catch (error) {
         console.error('Error generando cronograma:', error)
@@ -537,6 +385,12 @@ const onAmountChange = () => {
         scheduleData.value = null
         comparisonResults.value = []
     }
+}
+
+const sumFormat = (amountA, amountB) => {
+    console.log(amountA);
+    console.log(amountB);
+    return parseFloat(amountA.slice(3)) + parseFloat(amountB)
 }
 
 const formatMoney = (amount) => {
